@@ -36,7 +36,7 @@ struct Args{
     #[arg(short, long, help = "path to save output file Defaults to not saving output.")]
     outfile: Option<PathBuf>,
 
-    #[arg(short, long, help = "number of threads to use, default to 10. \nNote thre thread count will be doubled, one set for share finder tasks, and one set for file and infor finding tasks.")]
+    #[arg(long, help = "number of threads to use, default to 10. \nNote thre thread count will be doubled, one set for share finder tasks, and one set for file and infor finding tasks.")]
     threads: Option<usize>,
 
     #[arg(short, long, help = "specific targets. should be comma separated.")]
