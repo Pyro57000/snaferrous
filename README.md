@@ -21,3 +21,14 @@ Options:
 `cargo build --target x86_64-pc-windows-gnu --release`
 then your .exe will be in the targets/x86_64-pc-windows-gnu/release folder!
 
+# Tool Output.
+By default the tool will only print the found shares and files with keyword matches to the console.
+If you give it the -v flag then it will print all files it finds to the console.
+By default it only gives output to the console, but if you give it an outfile with the -o flag it will save findings to that file.
+If it can't open the output file or write to it for any reason it will ask you if you want to continue without saving anyway.
+
+Findings will be structured like the following:
+shares - share found! {path to the share}
+keyword matchs - keyword match at {path to the file}
+file - file found at {path to the file}
+
