@@ -18,9 +18,7 @@ Options:
 
   -o, --outfile <OUTFILE>  path to save output file Defaults to not saving output.
 
-      \--threads <THREADS>  number of threads to use, default to 10. 
-
-                           Note thre thread count will be doubled, one set for share finder tasks, and one set for file and infor finding tasks.
+  --threads <THREADS>  number of threads to use, default to 10.
 
   -t, --targets <TARGETS>  specific targets. should be comma separated.
 
