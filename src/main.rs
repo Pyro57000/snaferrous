@@ -36,7 +36,7 @@ struct Args{
     #[arg(short, long, help = "path to save output file Defaults to not saving output.")]
     outfile: Option<PathBuf>,
 
-    #[arg(long, help = "number of threads to use, default to 10. \nNote thre thread count will be doubled, one set for share finder tasks, and one set for file and infor finding tasks.")]
+    #[arg(long, help = "number of threads to use, default to 10.")]
     threads: Option<usize>,
 
     #[arg(short, long, help = "specific targets. should be comma separated.")]
@@ -79,26 +79,14 @@ async fn task_handler(id: usize, current_task: FinderTask, tx: Sender<Message>){
         TaskType::Share => {
             println!("scanning {}", current_task.target);
             let share_list_res = Command::new("net").arg("view").arg(current_task.target.clone()).arg("/all").output();
-            let mut error_string = String::new();
             let mut success_string = String::new();
             if share_list_res.is_ok(){
                 let output = share_list_res.unwrap();
                 if output.stdout.len() > 0{
                     success_string = String::from_utf8_lossy(&output.stdout).to_string();
                 }
-
-                if output.stderr.len() > 0{
-                    error_string = String::from_utf8_lossy(&output.stderr).to_string();
-                }
             }
-            else{
-                error_string = share_list_res.err().unwrap().to_string();
-            }
-            if error_string.len() > 0{
-                eprintln!("{}", "Error listing shares!".red());
-                eprint!("{}", error_string.red());
-            }
-            else if success_string.len() > 0{
+            if success_string.len() > 0{
                 let mut sent_lines = Vec::new();
                 for line in success_string.lines(){
                     if line.contains("Disk"){
